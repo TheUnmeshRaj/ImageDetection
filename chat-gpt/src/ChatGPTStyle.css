@@ -1,0 +1,116 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+  background-image: url("C:\Users\unmes\OneDrive\Desktop\EL\SkinDiseaseAI2\chat-app\src\components\InputText\assets\oknice.gif");
+  background-size: auto;
+  display: flex;
+  justify-content: left;
+  align-items:last baseline;
+  height: 100vh; /* Full viewport height */
+}
+
+
+.chat-container {
+  max-width: 600px;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.5); /* Translucent black */
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  width: 100%; /* Ensures it scales with screen size */
+  scrollbar-width: thin;  
+  scrollbar-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0);  
+  
+}
+
+
+.chat-history {
+  max-height: 600px;
+  min-width: 1200px;
+  margin-bottom: 20px;
+  border: 1px solid #ed1d1d;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #fff;
+  overflow-y: auto;
+
+}
+.chat-bubble {
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #e8f5e9;
+  border: 1px solid #c8e6c9;
+}
+
+.query {
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #1b5e20;
+}
+
+.response {
+  color: #333;
+}
+
+.uploaded-img {
+  max-width: 100px;
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+.input-section {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.text-input, .file-input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  flex: 1;
+  width: 300px;
+}
+
+.send-btn {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.send-btn img {
+  width: 20px;
+  height: 20px;
+}
+
+.send-btn:disabled {
+  background-color: #a5d6a7;
+  cursor: not-allowed;
+}
+
+.formatted-treatment p {
+  margin: 0.5em 0;
+  line-height: 1.5;
+}
+
+.formatted-treatment strong {
+  color: #333;
+}
+
+.formatted-treatment ul {
+  margin: 0.5em 0 0.5em 1em;
+  padding-left: 1em;
+}
+
+.formatted-treatment li {
+  margin-bottom: 0.3em;
+}
