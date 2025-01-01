@@ -79,13 +79,132 @@ def find_similar_disease(input_query):
     ]
     return diseases[similarities.index(max(similarities))]
 
+def format_treatment(treatment):
+    formatted_treatment = treatment.replace('**', '<strong>').replace('**', '</strong>')  # Bold text formatting
+    lines = treatment.split('\n')
+    formatted_lines = []
+    
+    for line in lines:
+        line = line.strip()
+        if line.startswith('*'):  # If it's a list item
+            formatted_lines.append(f'<li>{line[1:].strip()}</li>')  # Remove * and wrap in <li> tags
+        elif line:  # If it's a non-empty line
+            formatted_lines.append(f'<p>{line}</p>')  # Wrap text in <p> tags
+    
+    return f'<div class="formatted-treatment">{"".join(formatted_lines)}</div>'
+
+treatment_plans = {
+    'Acne and Rosacea': """
+        **Acne and Rosacea: Diagnosis and Treatment**
+
+        **Diagnosis**: Acne is diagnosed based on the appearance of pimples, cysts, and blackheads on the skin. Rosacea is diagnosed by evaluating the presence of redness, visible blood vessels, and pimples, primarily on the face.
+
+        **Treatment**:
+        * Topical Retinoids: Help prevent pores from becoming clogged.
+        * Benzoyl Peroxide: Kills acne-causing bacteria.
+        * Antibiotics: Used for severe acne to reduce bacteria and inflammation.
+        * Chemical Peels: Helps with acne scars.
+        * Oral Antibiotics: Prescribed for severe cases.
+
+        Skin Treatments for Rosacea:
+        * Topical Metronidazole: Reduces redness and inflammation.
+        * Oral Antibiotics: For severe rosacea.
+        * Laser Therapy: To reduce redness and visible blood vessels.
+        * Avoid Triggers: Sun exposure, hot beverages, spicy foods.
+
+        **Outcome**: Acne treatment can take weeks to months for results, but it can improve with the right regimen. Rosacea can be controlled with ongoing treatment, but there is no cure.
+    """,
+    'Actinic Keratosis Basal Cell Carcinoma': """
+        **Actinic Keratosis and Basal Cell Carcinoma: Diagnosis and Treatment**
+
+        **Diagnosis**: Actinic keratosis is diagnosed by the appearance of scaly, dry patches. Basal cell carcinoma is diagnosed by biopsy after examining a growing, pearly, or ulcerated bump on the skin.
+
+        **Treatment**:
+        * Cryotherapy: Freezing the abnormal cells.
+        * Topical Treatments: 5-fluorouracil (5-FU) to treat actinic keratosis.
+        * Curettage and Electrodesiccation: Removal of the lesion by scraping.
+        * Mohs Surgery: A precise surgical method for basal cell carcinoma.
+        * Radiation Therapy: For non-surgical candidates.
+        * Excision: Surgical removal of lesions.
+
+        **Outcome**: Actinic keratosis can be treated effectively, but recurrences are common. Basal cell carcinoma has a high cure rate if detected early, but it may require multiple treatments.
+    """,
+    'Nail Fungus': """
+        **Nail Fungus: Diagnosis and Treatment**
+
+        **Diagnosis**: Nail fungus is diagnosed by examining the nail's appearance, including thickening, discoloration, and crumbling. A sample of nail debris may be taken for lab analysis.
+
+        **Treatment**:
+        * Antifungal Medications: Oral antifungals like terbinafine or itraconazole are prescribed.
+        * Topical Antifungal Treatments: Applied directly to the nail.
+        * Laser Treatment: Uses lasers to target the fungus.
+        * Surgery: In severe cases, the infected nail may be removed.
+
+        **Outcome**: Treatment may take several months, and the recurrence rate is high if not fully treated.
+    """,
+    'Psoriasis Lichen Planus': """
+        **Psoriasis and Lichen Planus: Diagnosis and Treatment**
+
+        **Diagnosis**: Psoriasis is diagnosed through skin examination and biopsy if necessary. Lichen planus is diagnosed by examining the skin, nails, and mouth, often confirmed with a biopsy.
+
+        **Treatment**:
+        Psoriasis Treatments:
+        * Topical Corticosteroids: To reduce swelling and redness.
+        * Vitamin D Analogues: Helps to slow down skin cell production.
+        * Phototherapy: Uses ultraviolet light to treat affected areas.
+        * Biologic Drugs: Target immune system components responsible for psoriasis.
+
+        Lichen Planus Treatments:
+        * Antihistamines: To relieve itching.
+        * Topical Corticosteroids: Reduce inflammation and lesions.
+        * Retinoids: To help with skin lesions.
+        * Oral Medications: For widespread or severe cases.
+
+        **Outcome**: Psoriasis can be managed with treatment, but it tends to flare up periodically. Lichen planus often resolves but may take months to years.
+    """,
+    'Seborrheic Keratoses': """
+        **Seborrheic Keratoses: Diagnosis and Treatment**
+
+        **Diagnosis**: Seborrheic keratoses are diagnosed by their characteristic appearance of raised, waxy, or scaly lesions that appear brown or black. No biopsy is usually necessary unless a diagnosis is uncertain.
+
+        **Treatment**:
+        * Cryotherapy: Freezing the lesions off.
+        * Curettage: Scraping off the growths.
+        * Laser Treatment: Using a laser to remove the lesion.
+        * Excision: Surgical removal of larger lesions.
+
+        **Outcome**: Seborrheic keratoses are benign and not harmful. The treatment is typically cosmetic and may not be needed unless the lesions cause irritation.
+    """,
+    'Tinea Ringworm Candidiasis': """
+        **Tinea, Ringworm, and Candidiasis: Diagnosis and Treatment**
+
+        **Diagnosis**: Tinea and ringworm are diagnosed by examining the appearance of circular, red, scaly rashes. Candidiasis is identified by its characteristic rash, typically in warm, moist areas of the body.
+
+        **Treatment**:
+        * Antifungal Creams: Over-the-counter creams like clotrimazole and terbinafine for ringworm.
+        * Oral Antifungals: For more severe cases of tinea and candidiasis.
+        * Topical Antifungal Powder: Used to treat fungal infections in areas like the feet.
+        * Steroid Creams: For inflammation and itching.
+
+        **Outcome**: Tinea and ringworm can be treated effectively with antifungals, but recurrence is possible. Candidiasis is also treatable, but it may require longer courses of medication.
+    """,
+    'Warts Molluscum': """
+        **Warts and Molluscum: Diagnosis and Treatment**
+
+        **Diagnosis**: Warts are diagnosed by the appearance of raised, rough growths, typically on hands or feet. Molluscum contagiosum is diagnosed by the presence of small, dome-shaped lesions.
+
+        **Treatment**:
+        * Cryotherapy: Freezing the wart or lesion.
+        * Topical Treatments: Use of salicylic acid or cantharidin.
+        * Laser Removal: For stubborn warts.
+        * Excision: Surgical removal of warts.
+
+        **Outcome**: Warts generally resolve with treatment, but new ones can appear. Molluscum typically resolves on its own, but it may persist for months.
+    """
+}
+
 def find_treatment_plan(disease_name):
-    disease_embedding = embed_text(disease_name, tokenizer2, model2)
-    similarities = [
-        cosine_similarity(disease_embedding.detach().numpy(), topic_emb.detach().numpy())[0][0]
-        for topic_emb in topic_embeddings
-    ]
-    return information[similarities.index(max(similarities))]
+    return format_treatment(treatment_plans.get(disease_name, "Treatment plan not available"))
 
 def predict_image(img):
     img_tensor = transform(img).unsqueeze(0).to(device)
@@ -121,34 +240,6 @@ def fetchDoctors(location, query, mode, backupQuery, backupMode, locality):
         return {"error": f"No doctors found for {query} in {location}"}
 
     return doctor_data
-
-# API Routes
-@app.route('/api/TextAi', methods=['POST'])
-def GenResult():
-    data = request.get_json()
-    if 'inputText' not in data:
-        return jsonify({'error': 'No input text provided'}), 400
-
-    input_query = data['inputText']
-    try:
-        similar_disease = find_similar_disease(input_query)
-        treatment_plan = find_treatment_plan(similar_disease).replace("*", "").replace(":", ":\n").replace(". ", ".\n")
-
-        locality = "Indiranagar"
-        location = "bangalore"
-        query = similar_disease.replace(" ", "%20")
-        mode = "symptom"
-
-        doctor_info = fetchDoctors(location, query, mode, "", "", locality)
-
-        return jsonify({
-            'disease': similar_disease,
-            'treatment': treatment_plan,
-            'doctors': doctor_info
-        })
-
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
 
 @app.route('/api/ImageAi', methods=['POST'])
 def image_ai():
