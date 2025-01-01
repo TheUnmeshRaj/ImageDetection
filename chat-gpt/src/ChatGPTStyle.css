@@ -2,53 +2,55 @@ body {
   font-family: 'Roboto', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f9f9f9;
-  background-image: url("C:\Users\unmes\OneDrive\Desktop\EL\SkinDiseaseAI2\chat-app\src\components\InputText\assets\oknice.gif");
-  background-size: auto;
+  background-color: #e8f5e9; /* Subtle green background for a fresh look */
+  background-image: url("C:/Users/unmes/OneDrive/Desktop/EL/SkinDiseaseAI2/chat-app/src/components/InputText/assets/oknice.gif");
+  background-size: auto; /* Ensures seamless scaling for background */
+  background-attachment: fixed;
   display: flex;
   justify-content: left;
-  align-items:last baseline;
+  align-items: center; /* Centers the container vertically */
   height: 100vh; /* Full viewport height */
 }
 
-
 .chat-container {
-  max-width: 600px;
+  margin-left: 20px; /* Moves the container slightly to the right */
+  margin-top: 40px;
+  width: 90%; /* Responsive for smaller screens */
   padding: 20px;
-  background-color: rgba(0, 0, 0, 0.5); /* Translucent black */
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background-color: rgba(255, 255, 255, 0.7); /* Light translucent white for better contrast */
+  border-radius: 16px; /* Smooth rounded corners */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Stronger shadow for depth */
   font-family: Arial, sans-serif;
-  width: 100%; /* Ensures it scales with screen size */
+  backdrop-filter: blur(10px); /* Applies the blur effect */
+  -webkit-backdrop-filter: blur(10px); /* For Safari support */
   scrollbar-width: thin;  
   scrollbar-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0);  
-  
 }
 
 
 .chat-history {
-  max-height: 600px;
-  min-width: 1200px;
+  max-height: 500px;
   margin-bottom: 20px;
-  border: 1px solid #ed1d1d;
-  padding: 10px;
-  border-radius: 5px;
-  background-color: #fff;
-  overflow-y: auto;
-
-}
-.chat-bubble {
-  margin-bottom: 15px;
+  border: 1px solid #c8e6c9; /* Soft green border for subtle emphasis */
   padding: 10px;
   border-radius: 8px;
-  background-color: #e8f5e9;
-  border: 1px solid #c8e6c9;
+  background-color: #ffffff; /* White for clear text visibility */
+  overflow-y: auto;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.1); /* Slight inner shadow for focus */
+}
+
+.chat-bubble {
+  margin-bottom: 15px;
+  padding: 12px;
+  border-radius: 10px;
+  background-color: #f1f8e9; /* Light green for a soft, welcoming feel */
+  border: 1px solid #c5e1a5;
 }
 
 .query {
   margin-bottom: 5px;
   font-weight: bold;
-  color: #1b5e20;
+  color: #2e7d32;
 }
 
 .response {
@@ -65,6 +67,7 @@ body {
   display: flex;
   gap: 10px;
   justify-content: center;
+  flex-wrap: wrap; /* Allows inputs to stack on smaller screens */
 }
 
 .text-input, .file-input {
@@ -72,38 +75,40 @@ body {
   border: 1px solid #ccc;
   border-radius: 4px;
   flex: 1;
-  width: 300px;
+  min-width: 200px;
 }
 
 .send-btn {
-  background-color: #4caf50;
+  background-color: #81c784; /* Softer green for a friendlier tone */
   color: white;
   border: none;
   border-radius: 5px;
-  padding: 8px 12px;
+  padding: 10px 16px;
   cursor: pointer;
   display: flex;
   align-items: center;
-  margin-left: 10px;
+  justify-content: center;
 }
 
 .send-btn img {
   width: 20px;
   height: 20px;
+  margin-left: 5px;
 }
 
 .send-btn:disabled {
-  background-color: #a5d6a7;
+  background-color: #c8e6c9;
   cursor: not-allowed;
 }
 
 .formatted-treatment p {
   margin: 0.5em 0;
   line-height: 1.5;
+  color: #333;
 }
 
 .formatted-treatment strong {
-  color: #333;
+  color: #2e7d32;
 }
 
 .formatted-treatment ul {

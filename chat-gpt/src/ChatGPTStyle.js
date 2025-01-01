@@ -19,7 +19,7 @@ function ChatGPTStyle() {
     formData.append('file', image);
 
     try {
-      const response = await axios.post('http://127.0.0.1:5001/api/ImageAi', formData);
+      const response = await axios.post('http://127.0.0.1:5002/api/ImageAi', formData);
       const newMessage = {
         type: 'image',
         query: image.name,
