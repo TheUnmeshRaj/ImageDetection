@@ -9,6 +9,7 @@ body {
   display: flex;
   justify-content: left;
   align-items: center; /* Centers the container vertically */
+  overflow: hidden;
   height: 100vh; /* Full viewport height */
 }
 
@@ -58,8 +59,8 @@ body {
 }
 
 .uploaded-img {
-  max-width: 100px;
-  border-radius: 5px;
+  width: 200px;
+  border-radius: 15px;
   margin-top: 5px;
 }
 

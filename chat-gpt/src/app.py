@@ -213,34 +213,6 @@ def predict_image(img):
         _, predicted = torch.max(outputs, 1)
     return classes[predicted.item()]
 
-def fetchDoctors(location, query, mode, backupQuery, backupMode, locality):
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0 Safari/537.36"
-    }
-
-    def fetch_from_url(query, mode):
-        url = f"https://www.practo.com/search/doctors?results_type=doctor&q=%5B%7B%22word%22%3A%22{query}%22%2C%22autocompleted%22%3Atrue%2C%22category%22%3A%22{mode}%22%7D%2C%7B%22word%22%3A%22{locality}%22%2C%22autocompleted%22%3Atrue%2C%22category%22%3A%22locality%22%7D%5D&city={location}"
-        response = requests.get(url, headers=headers)
-        if response.status_code != 200:
-            return [], response.status_code
-
-        soup = BeautifulSoup(response.text, "html.parser")
-        doctor_data = []
-
-        for anchor in soup.find_all("a", href=True, class_=False):
-            if "/doctor/" in anchor["href"] and anchor.find("h2", class_="doctor-name"):
-                name = anchor.find("h2", class_="doctor-name").get_text(strip=True)
-                link = "https://www.practo.com" + anchor["href"]
-                doctor_data.append({"name": name, "link": link})
-        return doctor_data, response.status_code
-
-    doctor_data, status_code = fetch_from_url(query, mode)
-
-    if not doctor_data:
-        return {"error": f"No doctors found for {query} in {location}"}
-
-    return doctor_data
-
 @app.route('/api/ImageAi', methods=['POST'])
 def image_ai():
     if 'file' not in request.files:
@@ -256,12 +228,10 @@ def image_ai():
     query = predicted_disease.replace(" ", "%20")
     mode = "symptom"
 
-    doctor_info = fetchDoctors(location, query, mode, "", "", locality)
 
     return jsonify({
         'result': predicted_disease,
         'treatment': treatment_plan,
-        'doctors': doctor_info
     })
 
 if __name__ == '__main__':
